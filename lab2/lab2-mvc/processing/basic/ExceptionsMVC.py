@@ -4,3 +4,7 @@ class ItemAlreadyStored(Exception):
 
 class ItemNotStored(Exception):
     pass
+
+
+class ItemHaveForeign(Exception):
+    pass

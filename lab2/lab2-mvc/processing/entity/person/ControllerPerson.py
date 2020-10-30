@@ -22,16 +22,13 @@ class ControllerPerson(ControllerBasic):
         contact_email = list_atr[3]
         contact_tel_num = list_atr[4]
         self.validation(person_id, name, address, contact_email, contact_tel_num)
-        # print(breakable)
-        # print(name)
         item_type = self.model.item_type
         print(item_type)
         try:
             self.model.create_item(person_id, name, address, contact_email, contact_tel_num)
-            self.view.display_item_stored(person_id, name, address, contact_email, contact_tel_num)
-
+            self.view.display_item_stored(list_atr, "PERSON")
         except mvc_exc.ItemAlreadyStored as e:
-            self.view.display_item_already_stored_error(person_id, item_type, e)
+            self.view.display_item_already_stored_error(list_atr, name, e)
 
     def update_item(self, target, list_atr):
         person_id = list_atr[0]

@@ -48,16 +48,20 @@ class ItemBasic(object):
                 if row[column] == val:
                     idxs_items.append(row[column])
                     break
+        result = []
         if idxs_items:
             idxs_items = []
             for row in self.items:
                 if len(row) != 0:
                     if row[column] != val:
                         idxs_items.append(row)
+                    else:
+                        result.append(row)
             del self.items
             self.items = idxs_items
             self.db.del_row_in_table(self.table_name, str(column) + "=" + str(val))
         else:
             raise mvc_exc.ItemNotStored(
                 'Can\'t delete "{}" because it\'s not stored'.format(val))
+        return result
 

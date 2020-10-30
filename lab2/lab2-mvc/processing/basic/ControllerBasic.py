@@ -51,7 +51,9 @@ class ControllerBasic(object):
     def delete_item(self, column, val):
         item_type = self.model.item_type
         try:
-            self.model.delete_item(column, val)
-            self.view.display_item_deletion(id)
+            self.view.display_item_deletion(
+                self.model.delete_item(column, val))
         except mvc_exc.ItemNotStored as e:
             self.view.display_item_not_yet_stored_error(val, item_type, e)
+        except mvc_exc.ItemHaveForeign as e:
+            self.view.delete_impossible(val)

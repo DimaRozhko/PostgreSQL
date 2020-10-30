@@ -19,16 +19,12 @@ class ControllerDepartament(ControllerBasic):
         name = list_atr[1]
         country = list_atr[2]
         self.validation(departament_id, name, country)
-        # print(breakable)
-        # print(name)
         item_type = self.model.item_type
-        print(item_type)
         try:
             self.model.create_item(departament_id, name, country)
-            self.view.display_item_stored(departament_id, name, country)
-
+            self.view.display_item_stored(list_atr, "DEPARTAMENT")
         except mvc_exc.ItemAlreadyStored as e:
-            self.view.display_item_already_stored_error(name, item_type, e)
+            self.view.display_item_already_stored_error(list_atr, name, e)
 
     def update_item(self, target, list_atr):
         departament_id = list_atr[0]

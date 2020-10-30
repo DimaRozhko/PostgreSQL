@@ -30,7 +30,7 @@ class View(object):
     def display_item_already_stored_error(item, item_type, err):
         print('**************************************************************')
         print('Hey! We already have {} in our {} list!'
-              .format(item.upper(), item_type))
+              .format(item, item_type))
         print('{}'.format(err.args[0]))
         print('**************************************************************')
 
@@ -43,10 +43,10 @@ class View(object):
         print('**************************************************************')
 
     @staticmethod
-    def display_item_stored(thing_id, quantity, expiration_date, breakable, type_id, order_id, name):
+    def display_item_stored(list_data, name):
         print('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
         print('Hooray! We have just added some {} to our {} list!'
-              .format(thing_id, quantity, expiration_date, breakable, type_id, order_id, name.upper()))
+              .format(list_data, name))
         print('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
 
     @staticmethod
@@ -68,4 +68,10 @@ class View(object):
     def display_item_deletion(name):
         print('--------------------------------------------------------------')
         print('We have just removed {} from our list'.format(name))
+        print('--------------------------------------------------------------')
+
+    @staticmethod
+    def delete_impossible(name):
+        print('--------------------------------------------------------------')
+        print('It\'s impossible to delete {} from our table'.format(name))
         print('--------------------------------------------------------------')

@@ -25,16 +25,12 @@ class ControllerOrder(ControllerBasic):
         date = datestr.strptime(list_atr[2], '%d/%m/%Y')
         person_id = list_atr[3]
         self.validation(order_id, quantity, date, person_id)
-        # print(breakable)
-        # print(name)
         item_type = self.model.item_type
-        print(item_type)
         try:
             self.model.create_item(order_id, quantity, date, person_id)
-            self.view.display_item_stored(order_id, quantity, date, person_id)
-
+            self.view.display_item_stored(list_atr, "ORDER")
         except mvc_exc.ItemAlreadyStored as e:
-            self.view.display_item_already_stored_error(order_id, item_type, e)
+            self.view.display_item_already_stored_error(list_atr, order_id, e)
 
     def update_item(self, target, list_atr):
         order_id = list_atr[0]

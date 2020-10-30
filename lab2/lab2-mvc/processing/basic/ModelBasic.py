@@ -35,7 +35,7 @@ class ModelBasic(object):
         self.item.find()
 
     def delete_item(self, column, val):
-        self.item.delete_item(column, val)
+        return self.item.delete_item(column, val)
 
     def read_item(self, column, data):
         return self.item.read_item(column, data)

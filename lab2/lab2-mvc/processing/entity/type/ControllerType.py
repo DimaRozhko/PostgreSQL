@@ -19,16 +19,12 @@ class ControllerType(ControllerBasic):
         spoil_quick = eval(list_atr[1])
         type_name = list_atr[2]
         self.validation(type_id, spoil_quick, type_name)
-        # print(breakable)
-        # print(name)
         item_type = self.model.item_type
-        print(item_type)
         try:
             self.model.create_item(type_id, spoil_quick, type_name)
-            # self.view.display_item_stored(type_id, spoil_quick, type_name)
-
+            self.view.display_item_stored(list_atr, "TYPE")
         except mvc_exc.ItemAlreadyStored as e:
-            self.view.display_item_already_stored_error(type_name, item_type, e)
+            self.view.display_item_already_stored_error(list_atr, type_name, e)
 
     def update_item(self, target, list_atr):
         type_id = list_atr[0]

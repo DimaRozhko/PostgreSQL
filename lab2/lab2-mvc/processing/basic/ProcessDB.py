@@ -6,6 +6,7 @@ from entity.Order import Order
 from entity.Person import Person
 from entity.Thing import Thing
 from entity.Type import Type
+from processing.basic import ExceptionsMVC as ex_mvc
 now = datetime.now()
 
 
@@ -69,13 +70,13 @@ class ProcessDB(object):
         row = self.__cur.fetchone()
         if name_table_db.upper() == 'DEPARTAMENT':
             entity = Departament()
-        if name_table_db.upper() == 'ORDER':
+        elif name_table_db.upper() == 'ORDER':
             entity = Order()
-        if name_table_db.upper() == 'PERSON':
+        elif name_table_db.upper() == 'PERSON':
             entity = Person()
-        if name_table_db.upper() == 'THING':
+        elif name_table_db.upper() == 'THING':
             entity = Thing()
-        if name_table_db.upper() == 'TYPE':
+        elif name_table_db.upper() == 'TYPE':
             entity = Type()
         self.__listTable.append(entity.generator(row))
         while row is not None:
@@ -116,9 +117,12 @@ class ProcessDB(object):
     def del_row_in_table(self, table_name, cond):
         # self.print_table_db(table_name)
         # print(self.print_atr_type_and_return(table_name))
-        self.__cur.execute(f"DELETE FROM {table_name} "
+        try:
+            self.__cur.execute(f"DELETE FROM {table_name} "
                            f"WHERE {cond}")
-        self.__connection.commit()
+            self.__connection.commit()
+        except psycopg2.errors.lookup("23503"):
+            raise ex_mvc.ItemHaveForeign()
 
     def update_table(self, table_name, set_condition, where_condition):
         # self.print_table_db(table_name)
